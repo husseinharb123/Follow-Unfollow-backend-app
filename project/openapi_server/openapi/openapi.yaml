@@ -1,0 +1,917 @@
+openapi: 3.0.2
+info:
+  title: user api
+  version: "1.0"
+servers:
+- url: http://localhost:8070
+security:
+- BearerAuth: []
+tags:
+- name: user
+paths:
+  /CancelRequest:
+    patch:
+      description: cancel request
+      operationId: cancel_request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelRequestResponse'
+          description: response to cancel  request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /DeleteAccount:
+    post:
+      operationId: delete_account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties: {}
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteAccountResponse'
+          description: response to deleting the account
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /Rejectfollow:
+    patch:
+      description: reject follow
+      operationId: rejectfollow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RejectfollowResponse'
+          description: response to reject follow request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /approvefollow:
+    patch:
+      description: approve follow
+      operationId: approvefollow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproveFollowResponse'
+          description: response to approve  request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /follow:
+    patch:
+      description: follow a user (add a user to the follower list)
+      operationId: follow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FollowResponse'
+          description: response to follow request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /getall:
+    get:
+      description: get all
+      operationId: getall
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllResponse'
+          description: response to get all
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /login:
+    post:
+      description: login request
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: response to follow request
+      security: []
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /logout:
+    post:
+      description: logout request
+      operationId: logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties: {}
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutResponse'
+          description: response to loggout request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /requestfollow:
+    patch:
+      description: request to follow a private account
+      operationId: requestfollow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestfollowResponse'
+          description: response to sent follow request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /signup:
+    post:
+      description: sign up
+      operationId: sign_up
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfo'
+        description: the info of the user
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignupResponse'
+          description: response to signup
+      security: []
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /unfollow:
+    patch:
+      description: unfollow some user (remove a user from the followers list)
+      operationId: unfollow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_id'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnfollowResponse'
+          description: response to unfollow request
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /{user_id}:
+    get:
+      description: get user info
+      operationId: getuser
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+          description: response to get user
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /{user_id}/followers:
+    get:
+      description: get all followers
+      operationId: get_all_followers
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFollowersResponse'
+          description: response to get follower
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+  /{user_id}/following:
+    get:
+      description: get all followings
+      operationId: get_all_following
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFollowingResponse'
+          description: response to get following
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+components:
+  parameters:
+    user_id:
+      explode: false
+      in: path
+      name: user_id
+      required: true
+      schema:
+        format: ObjectId
+        pattern: "^[a-fA-F0-9]{24}$"
+        type: string
+      style: simple
+  responses:
+    UnfollowResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnfollowResponse'
+      description: response to unfollow request
+    FollowResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FollowResponse'
+      description: response to follow request
+    RequestfollowResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestfollowResponse'
+      description: response to sent follow request
+    ApproveFollowResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApproveFollowResponse'
+      description: response to approve  request
+    RejectfollowResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RejectfollowResponse'
+      description: response to reject follow request
+    CancelRequestResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CancelRequestResponse'
+      description: response to cancel  request
+    LoginResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginResponse'
+      description: response to follow request
+    LogoutResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LogoutResponse'
+      description: response to loggout request
+    SignupResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SignupResponse'
+      description: response to signup
+    GetUserResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUserResponse'
+      description: response to get user
+    DeleteAccountResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteAccountResponse'
+      description: response to deleting the account
+    GetFollowersResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetFollowersResponse'
+      description: response to get follower
+    GetFollowingResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetFollowingResponse'
+      description: response to get following
+    GetAllResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAllResponse'
+      description: response to get all
+  schemas:
+    UserInfo:
+      example:
+        Email: Email
+        FirstName: FirstName
+        _id: _id
+        LastName: LastName
+        Gender: male
+        AccountType: private
+        Age: 18
+        Password: Password
+      properties:
+        _id:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          readOnly: true
+          title: _id
+          type: string
+        Email:
+          description: email must have the following format something@someserver.something
+          maxLength: 50
+          pattern: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+          title: Email
+          type: string
+        Password:
+          description: "Minimum eight characters, at least one uppercase letter, one\
+            \ lowercase letter, one number and one special character"
+          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
+          title: Password
+          type: string
+          writeOnly: true
+        FirstName:
+          description: no special characters or numbers are allowed
+          maxLength: 15
+          minLength: 3
+          pattern: "^[a-zA-Z][a-zA-Z .,'-]*$"
+          title: FirstName
+          type: string
+        LastName:
+          description: no special characters or numbers are allowed
+          maxLength: 15
+          minLength: 3
+          pattern: "^[a-zA-Z][a-zA-Z .,'-]*$"
+          title: LastName
+          type: string
+        AccountType:
+          description: type of account
+          enum:
+          - private
+          - public
+          title: AccountType
+          type: string
+        Gender:
+          enum:
+          - male
+          - female
+          title: Gender
+          type: string
+        Age:
+          minimum: 18
+          title: Age
+          type: integer
+      required:
+      - AccountType
+      - Age
+      - Email
+      - FirstName
+      - Gender
+      - LastName
+      - Password
+      title: UserInfo
+      type: object
+    all_user_info:
+      properties:
+        _id:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          readOnly: true
+          type: string
+        Email:
+          description: email must have the following format something@someserver.something
+          maxLength: 50
+          pattern: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+          type: string
+        Password:
+          description: "Minimum eight characters, at least one uppercase letter, one\
+            \ lowercase letter, one number and one special character"
+          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
+          type: string
+          writeOnly: true
+        FirstName:
+          description: no special characters or numbers are allowed
+          maxLength: 15
+          minLength: 3
+          pattern: "^[a-zA-Z][a-zA-Z .,'-]*$"
+          type: string
+        LastName:
+          description: no special characters or numbers are allowed
+          maxLength: 15
+          minLength: 3
+          pattern: "^[a-zA-Z][a-zA-Z .,'-]*$"
+          type: string
+        AccountType:
+          description: type of account
+          enum:
+          - private
+          - public
+          type: string
+        Gender:
+          enum:
+          - male
+          - female
+          type: string
+        Age:
+          minimum: 18
+          type: integer
+        Followers:
+          description: list of followers
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          readOnly: true
+          type: array
+        Following:
+          description: List of people who you followed
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          readOnly: true
+          type: array
+        PendingFollow:
+          description: list of sent follows request
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          readOnly: true
+          type: array
+        IncomingFollow:
+          description: list of recieved follows request
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          readOnly: true
+          type: array
+      required:
+      - AccountType
+      - Age
+      - Email
+      - FirstName
+      - Gender
+      - LastName
+      - Password
+      type: object
+    UnfollowResponse:
+      description: response to unfollow request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User Unfollowed successfully
+      properties:
+        message:
+          example: User Unfollowed successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: UnfollowResponse
+      type: object
+    FollowResponse:
+      description: response to follow request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User Followed successfully
+      properties:
+        message:
+          example: User Followed successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: FollowResponse
+      type: object
+    RequestfollowResponse:
+      description: response to sent follow request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User sent the Follow Request successfully
+      properties:
+        message:
+          example: User sent the Follow Request successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: RequestfollowResponse
+      type: object
+    ApproveFollowResponse:
+      description: response to approve  request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User approved  the Follow Request successfully
+      properties:
+        message:
+          example: User approved  the Follow Request successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: ApproveFollowResponse
+      type: object
+    RejectfollowResponse:
+      description: response to reject follow request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User Rejected Follow Request successfully
+      properties:
+        message:
+          example: User Rejected Follow Request successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: RejectfollowResponse
+      type: object
+    CancelRequestResponse:
+      description: response to cancel  request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User Canceled  the Follow Request successfully
+      properties:
+        message:
+          example: User Canceled  the Follow Request successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: CancelRequestResponse
+      type: object
+    LoginResponse:
+      description: response to follow request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User logged in successfully
+      properties:
+        message:
+          example: User logged in successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: LoginResponse
+      type: object
+    LogoutResponse:
+      description: response to loggout request
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User logged out successfully
+      properties:
+        message:
+          example: User logged out successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: LogoutResponse
+      type: object
+    SignupResponse:
+      description: response to signup
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User signed up successfully
+      properties:
+        message:
+          example: User signed up successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: SignupResponse
+      type: object
+    GetUserResponse:
+      description: response to get user
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User get the user info  successfully
+      properties:
+        message:
+          example: User get the user info  successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: GetUserResponse
+      type: object
+    DeleteAccountResponse:
+      description: response to deleting the account
+      example:
+        user_info:
+          Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        message: User Deleted  his account successfully
+      properties:
+        message:
+          example: User Deleted  his account successfully
+          title: message
+          type: string
+        user_info:
+          $ref: '#/components/schemas/UserInfo'
+      title: DeleteAccountResponse
+      type: object
+    MutualFriendResponse:
+      description: response to geting mutual friend
+      properties:
+        message:
+          example: User get the list of mutual freinds  successfully
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          type: array
+      type: object
+    GetFollowersResponse:
+      description: response to get follower
+      example:
+        message: User get the list of Followers  successfully
+        users:
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+      properties:
+        message:
+          example: User get the list of Followers  successfully
+          title: message
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          title: users
+          type: array
+      title: GetFollowersResponse
+      type: object
+    GetFollowingResponse:
+      description: response to get following
+      example:
+        message: User get the list of Following  successfully
+        users:
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+      properties:
+        message:
+          example: User get the list of Following  successfully
+          title: message
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          title: users
+          type: array
+      title: GetFollowingResponse
+      type: object
+    GetAllResponse:
+      description: response to get all
+      example:
+        message: User get all userd  successfully
+        users:
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+        - Email: Email
+          FirstName: FirstName
+          _id: _id
+          LastName: LastName
+          Gender: male
+          AccountType: private
+          Age: 18
+          Password: Password
+      properties:
+        message:
+          example: User get all userd  successfully
+          title: message
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/UserInfo'
+          title: users
+          type: array
+      title: GetAllResponse
+      type: object
+    user_id:
+      properties:
+        _id:
+          format: ObjectId
+          pattern: "^[a-fA-F0-9]{24}$"
+          title: _id
+          type: string
+      title: user_id
+      type: object
+    login_request:
+      properties:
+        Email:
+          example: something@something.something
+          maxLength: 50
+          pattern: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+          title: Email
+          type: string
+        Password:
+          title: Password
+          type: string
+      title: login_request
+      type: object
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: openapi_server.controllers.security_controller_.info_from_BearerAuth
