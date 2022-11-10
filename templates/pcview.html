@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view</title>
+</head>  
+<style>
+th, td {
+  border: 1px solid black;
+}
+
+body{
+    max-width: 1200px;
+    margin: auto;
+}
+#input{
+    color:red;
+}
+button{
+   position: fixed;
+   top: 50%;
+   right: 50%;
+   width: 115px;
+   height: 30px;
+
+}
+</style>
+<body>
+  
+<table >
+
+<tr>
+
+<th colspan="4">Facility</th>
+<th colspan="11">PC Information</th>
+<th colspan="6">Monitor</th>
+
+</tr>
+
+
+<tr style="font-size:x-large">
+     <td>Bldg</td>
+        <td>Floor</td>
+        <td>Department</td>
+        <td>Room</td>
+        <td>Socket#</td>
+        <td>PC Barcode</td>
+        <td> PC S/N</td>
+        <td>PC Name</td>
+        <td>Make</td>
+        <td>Model</td>
+        <td>CPU</td>
+        <td>RAM</td>
+        <td>Username</td>
+        <td>Warranty</td>
+        <td>PO#</td>
+        <td>Make</td>
+        <td>Model</td>
+        <td>Size</td>
+        <td>S/N</td>
+        <td>Barcode</td>
+        <td>PO#</td>
+</tr>
+
+
+{% for each in output %}
+<tr id="input" style="color: red">   
+        <td>{{each.Bldg}}</td>
+        <td>{{each.Floor}}</td>
+        <td>{{each.Department}}</td>
+        <td>{{each.room}}</td>
+        <td>{{each.Socket}}</td>
+        <td>{{each.Barcode}}</td>
+        <td>{{each.PC_SN}}</td>
+        <td>{{each.PC_Name}}</td>
+        <td>{{each.pc_Make}}</td>
+        <td>{{each.pc_Model}}</td>
+        <td>{{each.pc_CPU}}</td>
+        <td>{{each.pc_RAM}}</td>
+        <td>{{each.pc_Username}}</td>
+        <td>{{each.pc_Warranty}}</td>
+        <td>{{each.pc_PO}}</td>
+        <td>{{each.screen_Make}}</td>
+        <td>{{each.screen_Model}}</td>
+        <td>{{each.scrren_size}}</td>
+        <td>{{each.screen_SN}}</td>
+        <td>{{each.screen_Barcode}}</td>
+        <td>{{each.screen_PO}}</td>
+        
+</tr>
+ {% endfor%}
+
+</table>
+
+
+
+
+
+<a href="search?device=pc"><button >back</button></a>
+
+
+
+</body>
+</html>

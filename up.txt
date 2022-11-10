@@ -1,0 +1,49 @@
+    f = open('app\j1.json')
+    data = json.load(f)
+    print(len(data))
+    for i in data:
+        obj = computernadscreen()
+        obj.Barcode = i['Barcode']
+        obj.Bldg = i['Bldg']
+        obj.Floor = i['Floor']
+        obj.Department = i['Department']
+        obj.Socket = i['Socket']
+        obj.room = i['room']
+        obj.PC_SN = i['PC_SN']
+        obj.PC_Name = i['PC_Name']
+        obj.pc_Make = i['pc_Make']
+        obj.pc_Model = i['pc_Model']
+        obj.pc_CPU = i['pc_CPU']
+        obj.pc_RAM = i['pc_RAM']
+        obj.pc_Username = i['pc_Username']
+        obj.pc_Warranty = i['pc_Warranty']
+        obj.pc_PO = i['pc_PO']
+        obj.screen_Barcode = i['screen_Barcode']
+        obj.screen_SN = i['screen_SN']
+        obj.screen_Make = i['screen_Make']
+        obj.screen_Model = i['screen_Model']
+        obj.screen_PO = i['screen_PO']
+        obj.scrren_size = i['scrren_size']
+        obj.save()
+    f.close()
+
+
+
+
+
+
+        f = open('app\j1.json')
+    data = json.load(f)
+    for i in data:
+        obj = computernadscreen()
+        obj.Barcode = i[0]
+        obj.Bldg = i[0]
+        obj.Floor = i[0]
+        obj.Department = i[0]
+        obj.Socket = i[0]
+        obj.room = i[0]
+        obj.PC_SN = i[0]
+        obj.save()
+  
+    # Closing file
+    f.close()

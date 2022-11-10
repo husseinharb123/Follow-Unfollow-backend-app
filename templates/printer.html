@@ -1,0 +1,71 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/device.css' %}">
+    <title>pc</title>
+</head>
+<body>
+    <div id="header">
+<a href="search?device=pc"><img src="static/images/pc.jpg" title="search for pc"></a>
+<a href="addprinter"><img src="static/images/addprinter.png" title="add new printer "></a>
+    </div>
+
+    <form action="search2">
+        <div id="navsearch"> 
+        <input type="text" name="searchfield" id="" placeholder="search...">
+        <select name="searchcat" id="" >
+            <option value="">Select category</option>
+        
+        
+            <option value="Bldg">Bldg</option>
+          <option value="Floor">Floor</option>
+          <option value="Department">Department</option>
+          <option value="room">room</option>
+          <option value="Socket">Socket</option>
+          <option value="Barcode">Barcode</option>
+          <option value="SN">SN</option>
+          <option value="Make">Make</option>
+          <option value="Model">Model</option>
+          <option value="address">ipaddress</option>
+          <option value="Warranty">Warranty</option>
+          <option value="PO">PO</option>
+
+
+        
+        </select>
+        <button id="search">search</button>
+        </div>
+       
+        <div id="list">
+            {% for each in output %}
+            <div id="items">
+                <div id="imge">   <img src="static/images/printer iocn.jpg" alt=""></div>
+                    <h3 id="barcode">Barcode: <span> {{each.Barcode}} </span></h3>
+                    <div id="bldg"> Buidling : <span style="color: lightslategray" > {{each.Bldg}} </span></div>
+                    <div id="floor"> Floor: <span style="color: lightslategray"> {{each.Floor}} </span></div>
+                    <div id="room"> Room : <span style="color: lightslategray"> {{each.room}} </span></div>
+              
+        
+          <div id="buttons">
+            <a href="edit?id={{each.id}}&device=printer" class="btn">edit</a>
+            <a id="btn"href="delete?id={{each.id}}&device=printer"
+              onclick="return confirm('Are you sure you want to delete this item?');"
+              >remove</a
+            >
+            <a href="view?id={{each.id}}&device=printer" id="btn">view</a>
+          </div>
+            </div>
+             {% endfor%}
+
+        </div>
+        
+
+
+
+    </form>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/device.css' %}" />
+    <title>pc</title>
+  </head>
+  <body>
+    <div id="header">
+      <a href="search?device=printer"
+        ><img src="static/images/printer.jpg" title="search for printers"
+      /></a>
+      <a href="addpc"
+        ><img src="static/images/addpc.png" title="add new pc "
+      /></a>
+    </div>
+
+    <form action="search1">
+      <div id="navsearch">
+        <input type="text" name="searchfield" id="" placeholder="search..." />
+        <select name="searchcat" id="">
+          <option value="">Select category</option>
+          <option value="Bldg">bldg</option>
+          <option value="Floor">Floor</option>
+          <option value="Department">Department</option>
+          <option value="room">room</option>
+          <option value="Socket">Socket</option>
+          <option value="Barcode">PC_Barcode</option>
+          <option value="PC_SN">PC_SN</option>
+          <option value="PC_Name">PC_Name</option>
+          <option value="pc_Make">pc_Make</option>
+          <option value="pc_Model">pc_Model</option>
+          <option value="pc_CPU">pc_CPU</option>
+          <option value="pc_RAM">pc_RAM</option>
+          <option value="pc_Username">pc_Username</option>
+          <option value="pc_Warranty">pc_Warranty</option>
+          <option value="pc_PO">pc_PO</option>
+          <option value="screen_Make">screen_Make</option>
+          <option value="scrren_size">scrren_size</option>
+          <option value="screen_SN">screen_SN</option>
+          <option value="screen_Barcode">screen_Barcode</option>
+          <option value="screen_PO">screen_PO</option>
+          <option value="screen_Model">screen_Model</option>
+
+
+        </select>
+        <button id="search">search</button>
+      </div>
+</form>
+      <div id="list">
+        {% for each in output %}
+        <div id="items">
+          <div id="imge"><img src="static/images/pc_icon.png" alt="" /></div>
+          <h3 id="barcode">Barcode: <span > {{each.Barcode}} </span></h3>
+          <div id="bldg">Buidling : <span style="color: lightslategray"> {{each.Bldg}} </span></div>
+          <div id="floor">Floor: <span style="color: lightslategray"> {{each.Floor}} </span></div>
+          <div id="room">Room : <span style="color: lightslategray"> {{each.room}} </span></div>
+
+          <div id="buttons">
+            <a href="edit?id={{each.id}}&device=pc" class="btn">edit</a>
+            <a id="btn"href="delete?id={{each.id}}&device=pc"
+              onclick="return confirm('Are you sure you want to delete this item?');"
+              >remove</a
+            >
+            <a href="view?id={{each.id}}&device=pc" id="btn">view</a>
+          </div>
+        </div>
+        {% endfor%}
+      </div>
+    
+  </body>
+</html>

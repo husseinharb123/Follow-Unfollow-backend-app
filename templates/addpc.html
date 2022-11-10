@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view</title>
+</head>  
+<style>
+th, td {
+  border: 1px solid black;
+}
+
+
+#input{
+    color:red;
+}
+button{
+   position: fixed;
+   top: 50%;
+   right: 50%;
+   width: 115px;
+   height: 30px;
+
+}
+
+</style>
+<body>
+  
+<table >
+
+<tr>
+
+<th colspan="4">Facility</th>
+<th colspan="11">PC Information</th>
+<th colspan="6">Monitor</th>
+
+</tr>
+
+
+<tr style="font-size:x-large">
+        <td>Bldg</td>
+        <td>Floor</td>
+        <td>Department</td>
+        <td>Room</td>
+        <td>Socket#</td>
+        <td>PC Barcode</td>
+        <td> PC S/N</td>
+        <td>PC Name</td>
+        <td>Make</td>
+        <td>Model</td>
+        <td>CPU</td>
+        <td>RAM</td>
+        <td>Username</td>
+        <td>Warranty</td>
+        <td>PO#</td>
+        <td>Make</td>
+        <td>Model</td>
+        <td>Size</td>
+        <td>S/N</td>
+        <td>Barcode</td>
+        <td>PO#</td>
+</tr>
+
+
+<form action="upload">
+<tr id="input">
+        <td><input type="text"  name="Bldg"  ></td>
+        <td><input type="text" name="Floor" ></td>
+         <td><input type="text"  name="Department" ></td>
+          <td><input type="text" name="room"  ></td>
+          <td><input type="text"  name="Socket"  ></td>
+         <td><input type="text"  name="Barcode" ></td>
+      <td><input type="text" name="PC_SN"  ></td>
+      <td><input type="text"  name="PC_Name" ></td>
+         <td><input type="text"  name="pc_Make"   ></td>
+          <td><input type="text"   name="pc_Model"  ></td>
+        <td><input type="text" name="pc_CPU"    ></td>
+        <td><input type="text" name="pc_RAM"  ></td>
+          <td><input type="text" name="pc_Username"  ></td>
+          <td><input type="text" name="pc_Warranty" ></td>
+         <td><input type="text" name="pc_PO"  ></td>
+        <td><input type="text" name="screen_Make"  ></td>
+          <td><input type="text"  name="screen_Model" ></td>
+          <td><input type="text" name="scrren_size" ></td>
+         <td><input type="text" name="screen_SN"   ></td>
+          <td><input type="text" name="screen_Barcode"  ></td>
+          <td><input type="text"   name="screen_PO" ></td>
+          
+</tr>
+<button style="right:40%">upload</button>
+
+</form>
+<a href="search?device=pc"><button >back</button></a>
+</table>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
